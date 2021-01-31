@@ -14,9 +14,7 @@ export class MathEx {
         arr: T[],
         cb: MathExCallback<T> = (el) => (el as unknown) as number
     ) {
-        return arr.reduce<number>((a, b) => {
-            return Math.max(a, cb(b));
-        }, 0);
+        return arr.reduce<number>((a, b) => Math.max(a, cb(b)), 0);
     }
 
     public static avg<T = number>(
