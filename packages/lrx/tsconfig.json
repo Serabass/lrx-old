@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "strict": false,
+    "outDir": "./dist",
+    "lib": ["es2018", "esnext.asynciterable"],
+    "typeRoots": [
+      "./.typings",
+      "../../node_modules/@types",
+      "./node_modules/@types"
+    ],
+    "declaration": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["./src/index.ts"]
+}

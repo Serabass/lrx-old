@@ -1,0 +1,35 @@
+{
+  "name": "@serabass/lrx",
+  "version": "1.0.7",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist node_modules coverage",
+    "reset-hash": "reset-hash",
+    "build": "tsc && cpy src/parser.pegjs dist",
+    "build:watch": "tsc --watch",
+    "lint": "eslint -c .eslintrc.yml --ext ts src",
+    "test": "(changed && jest && put-hash) || echo Code is not changed. Tests skipped",
+    "test:force": "jest",
+    "test:cov": "jest --coverage",
+    "prepublish": "tsc"
+  },
+  "publishConfig": {
+    "registry": "http://npm.serabass.local/"
+  },
+  "dependencies": {
+    "@serabass/changed": "^1.0.8",
+    "@serabass/hash": "^1.0.8",
+    "@types/md5": "^2.2.1",
+    "@types/md5-file": "^4.0.2",
+    "cpy-cli": "^3.1.1",
+    "md5": "^2.3.0",
+    "md5-file": "^5.0.0",
+    "pegjs": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/pegjs": "^0.10.2"
+  },
+  "gitHead": "0663d664c918ab54e8f91128061154935bea8f29"
+}

@@ -5,6 +5,9 @@
   "repository": "https://github.com/Serabass/lrx.git",
   "author": "Serabass <serabass565@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "lerna": "lerna"
+  },
   "dependencies": {
     "lerna": "^3.22.1"
   }

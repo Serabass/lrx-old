@@ -1,0 +1,3 @@
+globs:
+  - ./{src,__tests__}/**/*.ts
+  - package.json

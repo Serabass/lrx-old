@@ -1,0 +1,112 @@
+{
+  "name": "@mwf/vscode-ext",
+  "displayName": "LRX Support",
+  "description": "VSCode support for LRX files",
+  "version": "0.3.10",
+  "main": "dist/ext/extension.js",
+  "icon": "icon.png",
+  "publisher": "aster",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GalAster/vscode-subtitles.git"
+  },
+  "activationEvents": [
+    "onLanguage:lrx"
+  ],
+  "engines": {
+    "vscode": "^1.8.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "scripts": {
+    "build": "echo Build disabled || ts-node syntax/extension.ts && tsc && copy source\\parser.pegjs dist\\parser.pegjs /Y",
+    "tw": "jest --watchAll",
+    "w:sandbox": "nodemon -w source -e ts,pegjs -x \"ts-node source/sandbox.ts\"",
+    "pack": "vsce package"
+  },
+  "contributes": {
+    "semanticTokenScopes": [
+      {
+        "language": "lrx",
+        "scopes": {
+          "property.readonly": [
+            "variable.other.constant.property.ts"
+          ]
+        }
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "gpCustoms.gp",
+        "displayName": "GP",
+        "selector": [
+          {
+            "filenamePattern": "*.gp"
+          }
+        ]
+      },
+      {
+        "viewType": "album.meta.yml",
+        "displayName": "META",
+        "selector": [
+          {
+            "filenamePattern": "*.album.yml"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "id": "lrx",
+        "aliases": [
+          "LRX",
+          "Lyric"
+        ],
+        "extensions": [
+          ".lrx"
+        ],
+        "filenames": [],
+        "mimetypes": [
+          "text/x-lrx"
+        ],
+        "configuration": "./syntax/all.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "lrx",
+        "scopeName": "source.lyric",
+        "path": "./syntax/lyr.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "__metadata": {
+    "id": "90101069-65f0-4834-a2fa-faad3b9d14d9",
+    "publisherDisplayName": "Aster",
+    "publisherId": "3406b78c-f287-4619-8d82-7c97998693e3"
+  },
+  "publishConfig": {
+    "registry": "http://npm.serabass.local/"
+  },
+  "dependencies": {
+    "@serabass/lrx": "^1.0.7",
+    "@sunify/lerp-color": "^2.0.0",
+    "@types/cheerio": "^0.22.21",
+    "@types/jest": "^26.0.13",
+    "@types/node": "^11.13.6",
+    "@types/pegjs": "^0.10.2",
+    "@types/vscode": "^1.49.0",
+    "cheerio": "^1.0.0-rc.3",
+    "jest": "^26.4.2",
+    "pegjs": "^0.10.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^26.3.0",
+    "yaml": "^1.10.0",
+    "zip": "^1.2.0"
+  },
+  "gitHead": "0663d664c918ab54e8f91128061154935bea8f29"
+}
