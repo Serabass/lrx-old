@@ -1,5 +1,5 @@
 import {Lrx} from '../src';
-import path from 'path';
+import * as path from 'path';
 
 describe('LRX Tests', () => {
   it('LRX', async () => {
