@@ -1,5 +1,5 @@
 import { parse } from "../src";
-import { ChordsLine } from "../src/LRXParsedDocument";
+import { ChordsLine } from "../src";
 
 describe("Parser", () => {
   it("Parser", () => {

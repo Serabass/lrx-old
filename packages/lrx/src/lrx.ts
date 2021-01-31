@@ -1,13 +1,11 @@
 import * as fs from "fs";
 import * as fse from "fs-extra";
-import { hash } from "@serabass/hash";
-import { MathEx } from "@serabass/math";
-import { cache, Cacheable, CacheDriver, CacheKey } from "@serabass/cache";
-import { File } from "@mwf/common";
-import { source, parse } from "./parser";
+import md5File from "md5-file";
+import {File} from "./interfaces/file";
+import {source, parse} from "./parser";
+import {MathEx} from './math-ex';
 
 export class Lrx {
-  public static cache = cache(["LRX"]);
   public static async read(lrxPath: string) {
     if (!fs.existsSync(lrxPath)) {
       return "";
@@ -17,34 +15,25 @@ export class Lrx {
   }
 
   public static getParser() {
-    return this.cache.remember(["PegParser", "parserHash"], 10, () => source);
+    return source;
   }
 
   public static async rate(lrxPath: string) {
-    let hashValue = await hash().file(lrxPath);
-    return this.cache.remember(["Rate", hashValue], 10, async () => {
-      let content = await this.read(lrxPath);
-      let doc = parse(content);
-      let rates = doc.blocks
-        .filter((b) => b.body.filter((l) => l.type === "LINE").length > 0)
-        .map((b) => b.avgRate);
+    let content = await this.read(lrxPath);
+    let doc = parse(content);
+    let rates = doc.blocks
+      .filter((b) => b.body.filter((l) => l.type === "LINE").length > 0)
+      .map((b) => b.avgRate);
 
-      return MathEx.avg(rates);
-    });
+    return MathEx.avg(rates);
   }
 }
 
-export class LRXFile implements File, Cacheable {
+export class LRXFile implements File {
   public readonly md5: string;
-  public cache: CacheDriver;
 
   public constructor(public filename: string) {
-    this.md5 = hash().fileSync(filename);
-    this.cache = cache(["LRXFile", this.filename, this.md5]);
-  }
-
-  public async getCacheKey(): Promise<CacheKey> {
-    return ["LRXFile", this.filename, this.md5];
+    this.md5 = md5File.sync(filename);
   }
 
   public get exists() {
@@ -60,21 +49,18 @@ export class LRXFile implements File, Cacheable {
   }
 
   public read() {
-    let hashValue = hash().fileSync(this.filename);
-    return this.cache.remember(["Contents", hashValue], 10, () => {
-      return new Promise<string>((resolve, reject) => {
-        if (!fs.existsSync(this.filename)) {
-          return "";
+    return new Promise<string>((resolve, reject) => {
+      if (!fs.existsSync(this.filename)) {
+        return "";
+      }
+
+      return fs.readFile(this.filename, (err, data) => {
+        if (err) {
+          reject(err);
+          return;
         }
 
-        return fs.readFile(this.filename, (err, data) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(data.toString("utf-8"));
-        });
+        resolve(data.toString("utf-8"));
       });
     });
   }

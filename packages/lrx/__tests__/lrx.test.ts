@@ -1,4 +1,4 @@
-import {Lrx} from '../src/lrx';
+import {Lrx} from '../src';
 import path from 'path';
 
 describe('LRX Tests', () => {
