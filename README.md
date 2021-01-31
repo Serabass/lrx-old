@@ -1,2 +1,3 @@
 # lrx
-LRX is a text file format for songwriters 
+**LRX** - формат текстовых файлов для сонграйтеров.
+
