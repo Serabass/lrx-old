@@ -1,0 +1,11 @@
+{
+  "name": "lrx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Serabass/lrx.git",
+  "author": "Serabass <serabass565@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
